@@ -89,7 +89,7 @@ if __name__ == "__main__":
     iframe = folium.IFrame('Top Sales Center Point')
     popup = folium.Popup(iframe, min_width=200, max_width=200)
     folium.Marker(location=[df2a['coordinates'][1],df2a['coordinates'][0]],
-                    popup = popup).add_to(m)
+                    popup = popup, icon=folium.Icon(color="red", icon="info-sign")).add_to(m)
     
     # Draw the map
     st.subheader("Map View:")
