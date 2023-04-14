@@ -73,9 +73,12 @@ if __name__ == "__main__":
     df2 = pd.DataFrame(session.sql("WITH _top_10_locations AS ( SELECT TOP 10 o.location_id, ST_MAKEPOINT(o.longitude, o.latitude) AS geo_point, SUM(o.price) AS total_sales_usd FROM frostbyte_tasty_bytes.analytics.orders_v o WHERE 1=1 AND o.primary_city = 'Paris' AND YEAR(o.date) = 2022 GROUP BY o.location_id, o.latitude, o.longitude ORDER BY total_sales_usd DESC ) SELECT ST_COLLECT(tl.geo_point) AS collect_points, ST_CENTROID(collect_points) AS geometric_center_point FROM _top_10_locations tl;").to_pandas())
     st.subheader("Raw Data:")
     st.table(df2)
-    st.text(df2['GEOMETRIC_CENTER_POINT'])
+    st.subheader("test")
+    st.table(df2['GEOMETRIC_CENTER_POINT'][0])
+    st.subheader("test")
+    st.text(df2['GEOMETRIC_CENTER_POINT'][0])
 
-    df2['coordinates']
+    #df2['coordinates']
 
     ## Add center point
     #iframe = folium.IFrame('Top Sales Center Point')
