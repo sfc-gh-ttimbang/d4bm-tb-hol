@@ -95,7 +95,7 @@ if __name__ == "__main__":
     (-71.402411391077322, -74.050048183880477),
 ]
 
-    #folium.PolyLine(df1a["coordinates"][0], tooltip="Minimum Bounding Area").add_to(m1)
+    folium.PolyLine(bounding_coords, tooltip="Minimum Bounding Area").add_to(m1)
 
-    #st.subheader("Map View:")
-    #st_data = folium_static(m1, width=700)
+    st.subheader("Map View:")
+    st_data = folium_static(m1, width=700)
