@@ -53,7 +53,7 @@ if __name__ == "__main__":
     st.subheader("Raw Data:")
     st.table(df1)
 
-    m1 = folium.Map(location=[df.LATITUDE.mean(), df.LONGITUDE.mean()], zoom_start=13, control_scale=True)
+    #m1 = folium.Map(location=[df.LATITUDE.mean(), df.LONGITUDE.mean()], zoom_start=13, control_scale=True)
     
     #df1a = pd.DataFrame()
     #df1a = df1['MINIMUM_BOUNDING_POLYGON'][0]
@@ -95,7 +95,7 @@ if __name__ == "__main__":
     (-71.402411391077322, -74.050048183880477),
 ]
 
-    folium.PolyLine(bounding_coords, tooltip="Minimum Bounding Area").add_to(m1)
+    folium.PolyLine(bounding_coords, tooltip="Minimum Bounding Area").add_to(m)
 
     st.subheader("Map View:")
     st_data = folium_static(m1, width=700)
