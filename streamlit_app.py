@@ -59,12 +59,9 @@ if __name__ == "__main__":
     st.table(df1)
     df1a = pd.read_json(df1['MINIMUM_BOUNDING_POLYGON'][0])
 
-    st.text('Iterating')
     bounding_coords = list()
     for i in df1a["coordinates"][0]:
         bounding_coords.append((i[1],i[0]))
-    
-    st.text(bounding_coords)
 
     folium.PolyLine(bounding_coords, tooltip="Minimum Bounding Area").add_to(m)
 
