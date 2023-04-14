@@ -79,7 +79,7 @@ if __name__ == "__main__":
     iframe = folium.IFrame('Top Sales Center Point')
     popup = folium.Popup(iframe, min_width=200, max_width=200)
     folium.Marker(location=[df2a['coordinates'][1],df2a['coordinates'][0]],
-                    popup = popup, icon=folium.Icon(color="red", icon="info-sign")).add_to(m)
+                    popup = popup, icon=folium.Icon(color="green", icon="info-sign")).add_to(m)
     
     # Draw the map
     st.subheader("Map View:")
@@ -90,7 +90,7 @@ if __name__ == "__main__":
     st.text('set center point')
     center_point = { "coordinates": [ 2.364853294993676e+00, 4.885681511418426e+01 ], "type": "Point" }
     st.text('query')
-    df3 = pd.DataFrame(session.sql("WITH _2022_paris_locations AS ( SELECT DISTINCT o.location_id, o.location_name, ST_MAKEPOINT(o.longitude, o.latitude) AS geo_point FROM frostbyte_tasty_bytes.analytics.orders_v o WHERE 1=1 AND o.primary_city = 'Paris' AND YEAR(o.date) = 2022 ) SELECT TOP 50 ll.location_id, ll.location_name, ROUND(ST_DISTANCE(ll.geo_point, TO_GEOGRAPHY(" + str(center_point) + "))/1000,2) AS kilometer_from_top_selling_center FROM _2022_paris_locations ll ORDER BY kilometer_from_top_selling_center DESC;").to_pandas())
+    df3 = pd.DataFrame(session.sql("WITH _2022_paris_locations AS ( SELECT DISTINCT o.location_id, o.location_name, o.longitude, o.latitude, ST_MAKEPOINT(o.longitude, o.latitude) AS geo_point FROM frostbyte_tasty_bytes.analytics.orders_v o WHERE 1=1 AND o.primary_city = 'Paris' AND YEAR(o.date) = 2022 ) SELECT TOP 50 ll.location_id, ll.location_name, ll.longitude, ll.latitude, ROUND(ST_DISTANCE(ll.geo_point, TO_GEOGRAPHY(" + str(center_point) + "))/1000,2) AS kilometer_from_top_selling_center FROM _2022_paris_locations ll ORDER BY kilometer_from_top_selling_center DESC;").to_pandas())
     st.subheader("Raw Data:")
     st.table(df3)
     
