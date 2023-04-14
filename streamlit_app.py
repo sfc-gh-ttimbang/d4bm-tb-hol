@@ -70,7 +70,7 @@ if __name__ == "__main__":
     st.text('Iterating')
     bounding_coords = list()
     for i in df1a["coordinates"][0]:
-        bounding_coords.append((i[0],i[1]))   
+        bounding_coords.append((i[1],i[0]))   
         st.text('item:')
         st.text(i)
         st.text('contents')
