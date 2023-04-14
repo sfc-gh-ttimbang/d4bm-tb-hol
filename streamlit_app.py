@@ -87,7 +87,7 @@ if __name__ == "__main__":
 
     # Section 3 - Farthest Locations from top selling center point
     st.header("Farthest Locations From Top Selling Center Point")
-    df3 = pd.DataFrame(session.sql("WITH _2022_paris_locations AS ( SELECT DISTINCT o.location_id, o.location_name, ST_MAKEPOINT(o.longitude, o.latitude) AS geo_point FROM frostbyte_tasty_bytes.analytics.orders_v o WHERE 1=1 AND o.primary_city = 'Paris' AND YEAR(o.date) = 2022 ) SELECT TOP 50 ll.location_id, ll.location_name, ROUND(ST_DISTANCE(ll.geo_point, TO_GEOGRAPHY({\"coordinates\": [2.364853294993676e+00,4.885681511418426e+01],\"type\": \"Point\"}))/1000,2) AS kilometer_from_top_selling_center FROM _2022_paris_locations ll ORDER BY kilometer_from_top_selling_center DESC;").to_pandas())
+    df3 = pd.DataFrame(session.sql(r"WITH _2022_paris_locations AS ( SELECT DISTINCT o.location_id, o.location_name, ST_MAKEPOINT(o.longitude, o.latitude) AS geo_point FROM frostbyte_tasty_bytes.analytics.orders_v o WHERE 1=1 AND o.primary_city = 'Paris' AND YEAR(o.date) = 2022 ) SELECT TOP 50 ll.location_id, ll.location_name, ROUND(ST_DISTANCE(ll.geo_point, TO_GEOGRAPHY({\"coordinates\": [2.364853294993676e+00,4.885681511418426e+01],\"type\": \"Point\"}))/1000,2) AS kilometer_from_top_selling_center FROM _2022_paris_locations ll ORDER BY kilometer_from_top_selling_center DESC;").to_pandas())
     st.subheader("Raw Data:")
     st.table(df3)
     
