@@ -82,13 +82,15 @@ if __name__ == "__main__":
     st.table(df2a)
     st.text(df2a['coordinates'][1])
     st.text(df2a['coordinates'][0])
-    center_point = dict(df2['GEOMETRIC_CENTER_POINT'][0])
-    st.text(center_point)
 
     #df2['coordinates']
 
     ## Add center point
-    #iframe = folium.IFrame('Top Sales Center Point')
-    #popup = folium.Popup(iframe, min_width=200, max_width=200)
-    #folium.Marker(location=[row['LATITUDE'],row['LONGITUDE']],
-    #                popup = popup, c=row['LOCATION_NAME']).add_to(m)
+    iframe = folium.IFrame('Top Sales Center Point')
+    popup = folium.Popup(iframe, min_width=200, max_width=200)
+    folium.Marker(location=[df2a['coordinates'][1],df2a['coordinates'][0]],
+                    popup = popup).add_to(m)
+    
+    # Draw the map
+    st.subheader("Map View:")
+    st_data = folium_static(m, width=700)
