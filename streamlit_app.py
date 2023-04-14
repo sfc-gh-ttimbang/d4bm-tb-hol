@@ -94,7 +94,7 @@ if __name__ == "__main__":
     st.subheader("Raw Data:")
     st.table(df3)
 
-    m.fit_bounds(map.get_bounds(), padding=(30, 30))
+    m.fit_bounds(m.get_bounds(), padding=(30, 30))
 
     #Loop through each row in the dataframe
     for i,row in df3.iterrows():
