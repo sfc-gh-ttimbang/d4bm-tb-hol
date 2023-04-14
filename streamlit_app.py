@@ -74,8 +74,6 @@ if __name__ == "__main__":
     st.subheader("Raw Data:")
     st.table(df2)
     st.subheader("test")
-    st.table(df2['GEOMETRIC_CENTER_POINT'][0])
-    st.subheader("test")
     st.text(df2['GEOMETRIC_CENTER_POINT'][0])
 
     #df2['coordinates']
