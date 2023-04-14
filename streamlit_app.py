@@ -112,7 +112,7 @@ if __name__ == "__main__":
                     popup = popup, c=row['LOCATION_NAME'],icon=folium.Icon(color="red", icon="triangle-exclamation")).add_to(m)
     
     #Adjust map zoom
-    m.fit_bounds(m.get_bounds(), padding=(30, 30))
+    m.fit_bounds(m.get_bounds(), padding=(1, 1))
 
     ## Draw the map
     st.subheader("Map View:")
