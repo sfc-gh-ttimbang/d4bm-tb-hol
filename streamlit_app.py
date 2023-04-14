@@ -68,14 +68,18 @@ if __name__ == "__main__":
     st.text(df1a["coordinates"][0][0])
 
     st.text('Iterating')
+    bounding_coords = list()
     for i in df1a["coordinates"][0]:
+        bounding_coords.append((i[0],i[1]))   
         st.text('item:')
         st.text(i)
         st.text('contents')
         st.text(i[0])
         st.text(i[1])
+    
+    st.text(bounding_coords)
 
-
+    
 
     #coorlist = str(df1a["coordinates"][0])
     #temp2 = coorlist.replace('[','(')
