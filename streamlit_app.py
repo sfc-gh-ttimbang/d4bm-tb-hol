@@ -69,7 +69,7 @@ if __name__ == "__main__":
 
     st.text('Iterating')
     for i in df1a["coordinates"][0]:
-        print(i)
+        st.text(i)
 
     #coorlist = str(df1a["coordinates"][0])
     #temp2 = coorlist.replace('[','(')
