@@ -64,6 +64,9 @@ if __name__ == "__main__":
     st.text('["coordinates"][0]')
     st.text(df1a["coordinates"][0])
 
+    st.text('["coordinates"][0][0]')
+    st.text(df1a["coordinates"][0][0])
+
     #coorlist = str(df1a["coordinates"][0])
     #temp2 = coorlist.replace('[','(')
     #temp3 = temp2.replace(']',')')
