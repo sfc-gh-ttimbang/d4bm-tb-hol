@@ -82,6 +82,8 @@ if __name__ == "__main__":
     st.table(df2a)
     st.text(df2a['coordinates'][1])
     st.text(df2a['coordinates'][0])
+    center_point = set(df2['GEOMETRIC_CENTER_POINT'][0])
+    st.text(center_point)
 
     #df2['coordinates']
 
