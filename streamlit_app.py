@@ -61,13 +61,14 @@ if __name__ == "__main__":
     df1a = pd.read_json(temp1)
     #st.text(temp1)
     st.table(df1a)
+    st.text('["coordinates"][0]')
     st.text(df1a["coordinates"][0])
 
-    coorlist = str(df1a["coordinates"][0])
-    temp2 = coorlist.replace('[','(')
-    temp3 = temp2.replace(']',')')
-    bounding_coords = temp3[1:-1]
-    st.text(bounding_coords)
+    #coorlist = str(df1a["coordinates"][0])
+    #temp2 = coorlist.replace('[','(')
+    #temp3 = temp2.replace(']',')')
+    #bounding_coords = temp3[1:-1]
+    #st.text(bounding_coords)
 
     trail_coordinates = [
     (-71.351871840295871, -73.655963711222626),
@@ -77,7 +78,7 @@ if __name__ == "__main__":
     (-71.402411391077322, -74.050048183880477),
 ]
 
-    folium.PolyLine(df1a["coordinates"][0], tooltip="Minimum Bounding Area").add_to(m1)
+    #folium.PolyLine(df1a["coordinates"][0], tooltip="Minimum Bounding Area").add_to(m1)
 
-    st.subheader("Map View:")
-    st_data = folium_static(m1, width=700)
+    #st.subheader("Map View:")
+    #st_data = folium_static(m1, width=700)
