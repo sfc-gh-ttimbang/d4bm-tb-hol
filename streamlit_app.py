@@ -25,6 +25,7 @@ if __name__ == "__main__":
     st.title("Tasty Bytes: Visualizing Geospatial Data")
     session = create_session_object()
 
+    #Query for top 10 locations
     df = pd.DataFrame(session.sql("SELECT TOP 10 o.location_id, o.location_name, o.longitude, o.latitude, SUM(o.price) AS total_sales_usd FROM frostbyte_tasty_bytes.analytics.orders_v o WHERE 1=1 AND o.primary_city = 'Paris' AND YEAR(o.date) = 2022 GROUP BY 1,2,3,4 ORDER BY total_sales_usd DESC").to_pandas())
     
     st.header("Top 10 Areas by Total Sales")
@@ -45,6 +46,7 @@ if __name__ == "__main__":
         folium.Marker(location=[row['LATITUDE'],row['LONGITUDE']],
                     popup = popup, c=row['LOCATION_NAME']).add_to(m)
     
+    # Draw the map
     st.subheader("Map View:")
     st_data = folium_static(m, width=700)
 
@@ -53,13 +55,9 @@ if __name__ == "__main__":
     st.subheader("Raw Data:")
     st.table(df1)
 
-    #m1 = folium.Map(location=[df.LATITUDE.mean(), df.LONGITUDE.mean()], zoom_start=13, control_scale=True)
-    
-    #df1a = pd.DataFrame()
-    #df1a = df1['MINIMUM_BOUNDING_POLYGON'][0]
-    temp1 = df1['MINIMUM_BOUNDING_POLYGON'][0]
-    df1a = pd.read_json(temp1)
-    #st.text(temp1)
+    #temp1 = df1['MINIMUM_BOUNDING_POLYGON'][0]
+    #df1a = pd.read_json(temp1) 
+    df1a = pd.read_json(df1['MINIMUM_BOUNDING_POLYGON'][0])
     st.table(df1a)
     st.text('["coordinates"][0]')
     st.text(df1a["coordinates"][0])
@@ -79,21 +77,11 @@ if __name__ == "__main__":
     
     st.text(bounding_coords)
 
-    
-
     #coorlist = str(df1a["coordinates"][0])
     #temp2 = coorlist.replace('[','(')
     #temp3 = temp2.replace(']',')')
     #bounding_coords = temp3[1:-1]
     #st.text(bounding_coords)
-
-    trail_coordinates = [
-    (-71.351871840295871, -73.655963711222626),
-    (-71.374144382613707, -73.719861619751498),
-    (-71.391042575973145, -73.784922248007007),
-    (-71.400964450973134, -73.851042243124397),
-    (-71.402411391077322, -74.050048183880477),
-]
 
     folium.PolyLine(bounding_coords, tooltip="Minimum Bounding Area").add_to(m)
 
