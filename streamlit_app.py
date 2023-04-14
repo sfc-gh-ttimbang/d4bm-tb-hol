@@ -93,7 +93,21 @@ if __name__ == "__main__":
     df3 = pd.DataFrame(session.sql("WITH _2022_paris_locations AS ( SELECT DISTINCT o.location_id, o.location_name, o.longitude, o.latitude, ST_MAKEPOINT(o.longitude, o.latitude) AS geo_point FROM frostbyte_tasty_bytes.analytics.orders_v o WHERE 1=1 AND o.primary_city = 'Paris' AND YEAR(o.date) = 2022 ) SELECT TOP 50 ll.location_id, ll.location_name, ll.longitude, ll.latitude, ROUND(ST_DISTANCE(ll.geo_point, TO_GEOGRAPHY(" + str(center_point) + "))/1000,2) AS kilometer_from_top_selling_center FROM _2022_paris_locations ll ORDER BY kilometer_from_top_selling_center DESC;").to_pandas())
     st.subheader("Raw Data:")
     st.table(df3)
+
+    m = folium.Map(location=[df.LATITUDE.mean(), df.LONGITUDE.mean()], zoom_start=8, control_scale=True)
+
+    #Loop through each row in the dataframe
+    for i,row in df3.iterrows():
+        #Setup the content of the popup
+        iframe = folium.IFrame('Location Name:' + str(row["LOCATION_NAME"]) + '<br><br>' + 'Distance From Center Point:' + str(row["KILOMETER_FROM_TOP_SELLING_CENTER"]))
+        
+        #Initialise the popup using the iframe
+        popup = folium.Popup(iframe, min_width=300, max_width=300)
+        
+        #Add each row to the map
+        folium.Marker(location=[row['LATITUDE'],row['LONGITUDE']],
+                    popup = popup, c=row['LOCATION_NAME'],icon=folium.Icon(color="red", icon="triangle-exclamation")).add_to(m)
     
-    # Draw the map
-    #st.subheader("Map View:")
-    #st_data = folium_static(m, width=700)
+    ## Draw the map
+    st.subheader("Map View:")
+    st_data = folium_static(m, width=700)
