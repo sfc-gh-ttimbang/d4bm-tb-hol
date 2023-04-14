@@ -77,6 +77,9 @@ if __name__ == "__main__":
     st.text(df2['GEOMETRIC_CENTER_POINT'][0])
     st.subheader("test2")
     st.text(type(df2['GEOMETRIC_CENTER_POINT'][0]))
+    st.subheader("test3")
+    df2a = pd.read_json(df2['GEOMETRIC_CENTER_POINT'][0])
+    st.table(df2a)
 
     #df2['coordinates']
 
