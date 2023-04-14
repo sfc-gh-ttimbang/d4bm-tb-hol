@@ -73,17 +73,7 @@ if __name__ == "__main__":
     df2 = pd.DataFrame(session.sql("WITH _top_10_locations AS ( SELECT TOP 10 o.location_id, ST_MAKEPOINT(o.longitude, o.latitude) AS geo_point, SUM(o.price) AS total_sales_usd FROM frostbyte_tasty_bytes.analytics.orders_v o WHERE 1=1 AND o.primary_city = 'Paris' AND YEAR(o.date) = 2022 GROUP BY o.location_id, o.latitude, o.longitude ORDER BY total_sales_usd DESC ) SELECT ST_COLLECT(tl.geo_point) AS collect_points, ST_CENTROID(collect_points) AS geometric_center_point FROM _top_10_locations tl;").to_pandas())
     st.subheader("Raw Data:")
     st.table(df2)
-    st.subheader("test")
-    st.text(df2['GEOMETRIC_CENTER_POINT'][0])
-    st.subheader("test2")
-    st.text(type(df2['GEOMETRIC_CENTER_POINT'][0]))
-    st.subheader("test3")
     df2a = pd.read_json(df2['GEOMETRIC_CENTER_POINT'][0])
-    st.table(df2a)
-    st.text(df2a['coordinates'][1])
-    st.text(df2a['coordinates'][0])
-
-    #df2['coordinates']
 
     ## Add center point
     iframe = folium.IFrame('Top Sales Center Point')
@@ -94,3 +84,13 @@ if __name__ == "__main__":
     # Draw the map
     st.subheader("Map View:")
     st_data = folium_static(m, width=700)
+
+    # Section 3 - Farthest Locations from top selling center point
+    st.header("Farthest Locations From Top Selling Center Point")
+    df3 = pd.DataFrame(session.sql("WITH _2022_paris_locations AS ( SELECT DISTINCT o.location_id, o.location_name, ST_MAKEPOINT(o.longitude, o.latitude) AS geo_point FROM frostbyte_tasty_bytes.analytics.orders_v o WHERE 1=1 AND o.primary_city = 'Paris' AND YEAR(o.date) = 2022 ) SELECT TOP 50 ll.location_id, ll.location_name, ROUND(ST_DISTANCE(ll.geo_point, TO_GEOGRAPHY($center_point))/1000,2) AS kilometer_from_top_selling_center FROM _2022_paris_locations ll ORDER BY kilometer_from_top_selling_center DESC;").to_pandas())
+    st.subheader("Raw Data:")
+    st.table(df3)
+    
+    # Draw the map
+    #st.subheader("Map View:")
+    #st_data = folium_static(m, width=700)
