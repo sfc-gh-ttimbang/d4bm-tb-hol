@@ -72,7 +72,7 @@ if __name__ == "__main__":
         st.text('item:')
         st.text(i)
         st.text('contents')
-        st.text(i[0]','i[1])
+        st.text(i[0]+','+i[1])
 
 
 
