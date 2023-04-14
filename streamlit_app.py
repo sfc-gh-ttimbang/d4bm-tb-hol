@@ -98,4 +98,4 @@ if __name__ == "__main__":
     folium.PolyLine(bounding_coords, tooltip="Minimum Bounding Area").add_to(m)
 
     st.subheader("Map View:")
-    st_data = folium_static(m1, width=700)
+    st_data = folium_static(m, width=700)
