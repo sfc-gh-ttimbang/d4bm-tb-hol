@@ -24,6 +24,10 @@ def create_session_object():
 if __name__ == "__main__":
     st.title("Tasty Bytes: Visualizing Geospatial Data")
     session = create_session_object()
+    
+    st.set_page_config(
+       page_title="Tasty Bytes: Visualizing Geospatial Data"
+    )
 
     #Section 1 - Top 10 sales locations
 
